@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from accounts.forms import OrderForm, CustomerForm, CreateUserForm
 from accounts.filters import OrderFilter 
-from accounts.decorators import unauthenticated_users, allowed_users
+from accounts.decorators import unauthenticated_users, allowed_users, admin_only
 
 
 # Create your views here.
@@ -85,7 +85,8 @@ def accountSettings(request):
     context ={'form':form}
     return render(request,'accounts/accountsettings.html',context)
 
-@allowed_users(allowed_roles=['admin','customers'])
+@login_required(login_url='login')
+@admin_only
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
