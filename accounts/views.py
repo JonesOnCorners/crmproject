@@ -43,7 +43,7 @@ def register(request):
         if form.is_valid():
             user = form.save()            
             username = form.cleaned_data.get("username")
-            
+
             # group = Group.objects.get(name="customers")
 
             # user.groups.add(group)
@@ -85,7 +85,7 @@ def accountSettings(request):
     context ={'form':form}
     return render(request,'accounts/accountsettings.html',context)
 
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin','customers'])
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
