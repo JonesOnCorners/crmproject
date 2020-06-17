@@ -25,7 +25,7 @@ SECRET_KEY = 'yem(k+6y50o#-)yt(8xul&t&ci@qgf))oursa8#94v(dmrdm49'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thejdjournal-crm.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['thejdjournal-crm.herokuapp.com','127.0.0.1','jdjournal-crmcli.herokuapp.com']
 
 
 # Application definition
