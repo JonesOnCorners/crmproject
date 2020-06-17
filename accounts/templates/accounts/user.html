@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include 'accounts/status.html' %}
+
+<strong><p>Hello,{{request.user | upper}}</p></strong>
+<p>Below are your current orders</p>
+
+
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">            
+            <table class="table table-sm table-dark table-bordered ">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Date Ordered</th>
+                    <th>Status</th>                    
+                </tr>     
+                </thead> 
+                <tbody >
+                {% for order in orders %}
+                <tr>
+                    <td>{{order.product.name}}</td>
+                    <td>{{order.product.category}}</td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.status}}</td>                
+                </tr>      
+                {% endfor %}
+            </tbody>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
