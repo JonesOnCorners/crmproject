@@ -2,13 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-
-class Tag(models.Model):
-    name=models.CharField(max_length=250, null=True)
-
-    def __str__(self):
-        return self.name
-
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length = 250, null=True)
@@ -18,19 +11,17 @@ class Customer(models.Model):
     porfile_pic = models.ImageField(null=True,default="logo.png",blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class Product(models.Model):
-    CATEFORY=(
+    CATEGORY=(
         ('Indoor','Indoor'),
         ('Outdoor','Outdoor'),
     )
     name = models.CharField(max_length= 250, null=True)
     price = models.FloatField(null=True)
-    category= models.CharField(max_length=250,null=True, choices=CATEFORY)
-    description=models.CharField(max_length=250, null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True,null=True)
-    tags = models.ManyToManyField(Tag)
+    category= models.CharField(max_length=250,null=True, choices=CATEGORY)
+    date_created = models.DateTimeField(auto_now_add=True,null=True)    
 
     def __str__(self):
         return self.name
@@ -50,4 +41,4 @@ class Order(models.Model):
     status = models.CharField(max_length=250, null=True, choices=STATUS)
     
     def __str__(self):
-        return self.product.name
+        return str(self.product)

@@ -2,17 +2,14 @@
 {% load static %}
 
 {% block content %}
-
+<fieldset>
+    <legend class="mb-2">Place New Order For : {{customer}}</legend>
+    
 <form action="" method="POST">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset%}
-     {{form}}
-     <br>
-     <br>
-     {% endfor %}
+    {{ form }}
 
     <input type='submit' name="submit">
 </form>
-
-{% endblock %}
+</fieldset>
+{% endblock %}  

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from .models import *
-from accounts.forms import OrderForm, CustomerForm, CreateUserForm
+from accounts.forms import OrderForm, CustomerForm, CreateUserForm, UpdateOrderForm
 from accounts.filters import OrderFilter 
 from accounts.decorators import unauthenticated_users, allowed_users, admin_only
 
@@ -140,25 +140,44 @@ def createOrder(request, pk):
         if formset.is_valid():
             formset.save()
             return redirect(reverse('index'))
-    context ={'formset':formset}
-    return render(request,'accounts/orderform.html', context)
+    context ={'formset':formset,
+              'customer' : customer}
+    return render(request,'accounts/order_form.html', context)
 
 
-def updateOrder(request, pk):
-    order = Order.objects.get(id=pk)
+
+# def createOrder(request, pk):
+    
+#     form = OrderForm()
+#     #print(form)
+#     if request.method == "POST":
+#         form = OrderForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(reverse('index'))
+#     context ={'form':form,
+#               'customer' : customer}
+#     return render(request,'accounts/order_form.html', context)
+
+
+def updateOrder(request, pk):   
+    order = Order.objects.get(id=pk)    
     form = OrderForm(instance=order)
-    context ={'form':form}
-
-    if request.method == 'POST':
+    
+    if request.method == "POST":
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect(reverse('index'))            
-    return render(request,'accounts/orderform.html', context)
+            messages.success(request,'Order updated successfully')
+            return redirect('index')
+    
+    context = { 'form' : form }
+
+    return render(request,'accounts/updateorder.html', context)
 
 def deleteOrder(request, pk):
     item = Order.objects.get(id=pk)
-    form = OrderForm(instance=item)
+    form = OrderForm(instance=item)    
     context ={'item':item}
 
     if request.method == 'POST':

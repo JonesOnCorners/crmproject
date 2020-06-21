@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<fieldset>
+    <legend class="mb-2">Place New Order For : {{customer}}</legend>
+    
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset%}
+     {{form}}
+     <br>
+     <br>
+     {% endfor %}
+
+    <input type='submit' name="submit">
+</form>
+</fieldset>
+{% endblock %}

@@ -8,8 +8,13 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-        
 
+
+class UpdateOrderForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['product','status']
+        
 
 class CustomerForm(ModelForm):
     class Meta:
